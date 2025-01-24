@@ -9,10 +9,11 @@
                 <a href="{{ route('posts.show', $post) }}" class="list-group-item">
                     <h5>{{ $post->title }}</h5>
                     <h6>Postato il:{{ $post->created_at->format('d/m/Y H:i') }}</h6>
-                    <h6>Post modificato    il:{{ $post->updated_at->format('d/m/Y H:i') }}</h6>
+                    <h6>Post modificato il:{{ $post->updated_at->format('d/m/Y H:i') }}</h6>
                     <p>Commenti: {{ $post->comments_count }}</p>
                 </a>
                 <a href="{{ route('posts.edit', $post->id) }}" class="btn btn-warning btn-sm">Modifica</a>
+                <input type="hidden" value="valore_bello_figo_swag_barca">
                 <form action="{{ route('posts.destroy', $post->id) }}" method="POST" style="display:inline-block;">
                     @csrf
                     @method('DELETE')
