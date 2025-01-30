@@ -36,14 +36,21 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
+
         $request->validate([
             'title' => 'required|max:255',
             'content' => 'required',
         ]);
 
-        Post::create($request->all());
+        Post::create([
+            'title' => $request->title,
+            'content' => $request->get('content'),
+            'user_id' => auth()->id(),
+        ]);
+
         return redirect()->route('posts.index')->with('success', 'Post creato con successo.');
     }
+
 
     /**
      * Display the specified resource.
@@ -65,6 +72,10 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
+        if ($post->user_id !== auth()->id()) {
+            abort(403, 'Non autorizzato.');
+        }
+
         return view('posts.edit', compact('post'));
     }
 
@@ -77,6 +88,9 @@ class PostController extends Controller
      */
     public function update(Request $request,Post $post)
     {
+        if (auth()->id() !== $post->user_id) {
+            abort(403, 'Non sei autorizzato a modificare questo post.');
+        }
         $request->validate([
             'title' => 'required|max:255',
             'content' => 'required',
@@ -94,6 +108,10 @@ class PostController extends Controller
      */
     public function destroy(Post $post)
     {
+        if ($post->user_id !== auth()->id()) {
+            abort(403, 'Non autorizzato.');
+        }
+
         $post->delete();
         return redirect()->route('posts.index')->with('success', 'Post eliminato con successo.');
     }

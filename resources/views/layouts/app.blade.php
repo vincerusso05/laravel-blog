@@ -7,7 +7,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>Blog</title>
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
@@ -18,13 +18,26 @@
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+    <style>
+        /* Stile personalizzato per il link della navbar */
+        .navbar-brand {
+            font-weight: bold;
+            color: black; /* Colore verde */
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+
+        .navbar-brand:hover {
+            color: #0775f1; /* Colore giallo */
+            transform: scale(1.1); /* Leggera espansione quando hover */
+        }
+    </style>
 </head>
 <body>
     <div id="app">
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
-                <a class="navbar-brand" href="{{ url('/posts') }}">
-                    {{ config('app.name', 'Laravel') }}
+                <a class="navbar-brand " href="{{ url('/posts') }}">
+                   VINCYBLOG
                 </a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
@@ -66,6 +79,7 @@
 
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                         @csrf
+                                        <input type="hidden" name="redirect_to" value="/home">
                                     </form>
                                 </div>
                             </li>

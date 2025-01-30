@@ -14,7 +14,11 @@ class CommentController extends Controller
             'text' => 'required',
         ]);
 
-        $post->comments()->create($request->all());
+        $post->comments()->create([
+            'author' => $request->author,
+            'text' => $request->text,
+            'user_id' => auth()->id(),
+        ]);
 
         return redirect()->route('posts.show', $post)
             ->with('success', 'Commento aggiunto con successo.');
