@@ -10,13 +10,21 @@
             @endif
             <div class="mb-3">
                 <label>Titolo</label>
-                <input type="text" name="title" class="form-control" value="{{ $post->title ?? '' }}" required>
+                <input type="text" name="title" class="form-control auto-expand" value="{{ old('title', $post->title ?? '') }}" required>
+                @error('title')
+                <div class="text-danger">{{ $message }}</div>
+                @enderror
             </div>
+
             <div class="mb-3">
                 <label>Contenuto</label>
-                <textarea name="content" class="form-control" required>{{ $post->content ?? '' }}</textarea>
+                <textarea name="content" class="form-control auto-expand" required>{{ old('content', $post->content ?? '') }}</textarea>
+                @error('content')
+                <div class="text-danger">{{ $message }}</div>
+                @enderror
             </div>
             <button type="submit" class="btn btn-primary">Salva</button>
         </form>
     </div>
 @endsection
+

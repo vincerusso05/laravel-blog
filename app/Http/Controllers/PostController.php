@@ -38,8 +38,13 @@ class PostController extends Controller
     {
 
         $request->validate([
-            'title' => 'required|max:255',
-            'content' => 'required',
+            'title' => 'required|max:255|regex:/\S+/',
+            'content' => 'required|max:2000|regex:/\S+/',
+        ], [
+            'title.regex' => 'Il titolo non può essere composto solo da spazi.',
+            'content.regex' => 'Il contenuto non può essere composto solo da spazi.',
+            'title.max' => 'Hai raggiunto i caratteri massimi per il titolo',
+            'content.max' =>'Hai raggiunto i caratteri massimi per il post'// Messaggio personalizzato
         ]);
 
         Post::create([
@@ -92,8 +97,13 @@ class PostController extends Controller
             abort(403, 'Non sei autorizzato a modificare questo post.');
         }
         $request->validate([
-            'title' => 'required|max:255',
-            'content' => 'required',
+            'title' => 'required|max:255|regex:/\S+/',
+            'content' => 'required|max:2000|regex:/\S+/',
+        ], [
+            'title.regex' => 'Il titolo non può essere composto solo da spazi.',
+            'content.regex' => 'Il contenuto non può essere composto solo da spazi.',
+            'title.max' => 'Hai raggiunto i caratteri massimi per il titolo',
+            'content.max' =>'Hai raggiunto i caratteri massimi per il post'// Messaggio personalizzato
         ]);
 
         $post->update($request->all());
