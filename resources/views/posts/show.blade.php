@@ -4,6 +4,7 @@
     <div class="container">
         <!-- Sezione del Post -->
         <div class="post-section mb-5 p-4 border rounded bg-light">
+            <h4 ><strong class="text-primary">{{ $post->user->name }}</strong>'s post</h4>
             <h1>{{ $post->title }}</h1>
             <h3>{{ $post->content }}</h3>
             <p><strong>Post creato il:</strong> {{ $post->created_at->format('d/m/Y H:i') }}</p>
@@ -16,7 +17,7 @@
             <div>
                 @foreach($comments as $comment)
                     <div class="mb-3 p-3 border-bottom">
-                        <h3>{{ $comment->author }}</h3>
+                        <h3 ><strong class="text-primary">{{ $comment->author }}</strong></h3>
                         <h5>{{ $comment->text }}</h5>
                         <small>
                             <strong>Commentato il:</strong> {{ $comment->created_at->format('d/m/Y H:i') }}
@@ -41,7 +42,7 @@
                     <label>Testo</label>
                     <textarea name="text" class="form-control" required></textarea>
                 </div>
-                <button type="submit" class="btn btn-success">Aggiungi</button>
+                <button type="submit" class="btn btn-primary">Aggiungi</button>
             </form>
         </div>
     </div>

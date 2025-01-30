@@ -10,15 +10,15 @@
                     <div class="d-flex justify-content-between align-items-center">
                         <a href="{{ route('posts.show', $post) }}" class="text-decoration-none text-dark">
                             <div>
+                                <h4><strong class="text-primary">{{ $post->user->name }}</strong>'s post</h4>
                                 <h5>{{ $post->title }}</h5>
-                                <h6>Postato il: {{ $post->created_at->format('d/m/Y H:i') }}</h6>
-                                <h6>Post modificato il: {{ $post->updated_at->format('d/m/Y H:i') }}</h6>
+                                <h6>{{ $post->updated_at->format('d/m/Y H:i') }}</h6>
                                 <p>Commenti: {{ $post->comments_count }}</p>
                             </div>
                         </a>
                         <div>
                             @if(auth()->id() === $post->user_id)
-                            <a href="{{ route('posts.edit', $post->id) }}" class="btn btn-success btn-sm ms-2">Modifica</a>
+                            <a href="{{ route('posts.edit', $post->id) }}" class="btn btn-primary btn-sm ms-2">Modifica</a>
                             <form action="{{ route('posts.destroy', $post->id) }}" method="POST" style="display:inline-block;">
                                 @csrf
                                 @method('DELETE')
