@@ -14,7 +14,7 @@ class PostController extends Controller
      */
     public function index()
     {
-        $posts = Post::with('user')->withCount('comments')->paginate(5);
+        $posts = Post::with('user')->withCount('comments')->orderBy('updated_at','desc')->paginate(20);
         return view('posts.index', compact('posts'));
     }
 
@@ -60,7 +60,7 @@ class PostController extends Controller
      */
     public function show(Post $post)
     {
-        $comments = $post->comments()->latest()->get();
+        $comments = $post->comments()->orderBy('created_at','desc')->get();
         return view('posts.show', compact('post', 'comments'));
     }
 
