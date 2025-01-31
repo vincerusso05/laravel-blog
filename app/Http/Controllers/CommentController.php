@@ -28,6 +28,23 @@ class CommentController extends Controller
         return redirect()->route('posts.show', $post)
             ->with('success', 'Commento aggiunto con successo.');
     }
+    public function update(Request $request, Comment $comment)
+    {
+        // Controlla che l'utente sia il proprietario
+        if (auth()->id() !== $comment->user_id) {
+            return response()->json(['error' => 'Non puoi modificare questo commento'], 403);
+        }
 
+        // Validazione
+        $request->validate([
+            'text' => 'required|string|max:255',
+        ]);
+
+        // Aggiorna il commento
+        $comment->text = $request->text;
+        $comment->save();
+
+        return response()->json(['message' => 'Commento aggiornato con successo']);
+    }
 
 }

@@ -36,7 +36,6 @@ class PostController extends Controller
      */
     public function store(Request $request)
     {
-
         $request->validate([
             'title' => 'required|max:255|regex:/\S+/',
             'content' => 'required|max:2000|regex:/\S+/',
@@ -44,17 +43,23 @@ class PostController extends Controller
             'title.regex' => 'Il titolo non può essere composto solo da spazi.',
             'content.regex' => 'Il contenuto non può essere composto solo da spazi.',
             'title.max' => 'Hai raggiunto i caratteri massimi per il titolo',
-            'content.max' =>'Hai raggiunto i caratteri massimi per il post'// Messaggio personalizzato
+            'content.max' => 'Hai raggiunto i caratteri massimi per il post'
         ]);
 
-        Post::create([
+        $post = Post::create([
             'title' => $request->title,
             'content' => $request->get('content'),
             'user_id' => auth()->id(),
         ]);
 
-        return redirect()->route('posts.index')->with('success', 'Post creato con successo.');
+        // Risposta AJAX con successo
+        return response()->json([
+            'success' => true,
+            'message' => 'Post creato con successo.',
+            'redirect_url' => route('posts.index')  // URL di redirect per la pagina index
+        ]);
     }
+
 
 
     /**
@@ -107,7 +112,11 @@ class PostController extends Controller
         ]);
 
         $post->update($request->all());
-        return redirect()->route('posts.index')->with('success', 'Post aggiornato con successo.');
+        return response()->json([
+            'success' => true,
+            'message' => 'Post aggiornato con successo.',
+            'redirect_url' => route('posts.index'),
+        ]);
     }
 
     /**

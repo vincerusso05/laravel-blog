@@ -19,3 +19,9 @@ Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name
 Route::get('/', function () {
     return redirect()->route('login');
 });
+Route::get('/index', [PostController::class, 'index'])->name('posts.index');
+Route::get('/create', [PostController::class, 'create'])->name('posts.create');
+Route::post('/posts', [PostController::class, 'store'])->name('posts.store');
+Route::put('/posts/{post}', [PostController::class, 'update'])->name('posts.update');
+Route::put('/comments/{comment}', [CommentController::class, 'update'])->name('comments.update');
+
