@@ -4,7 +4,7 @@
     <div class="container">
         <!-- Sezione del Post -->
         <div class="post-section mb-3 p-4 border rounded bg-light">
-            <h3 >Post di <strong class="text-primary">{{ $post->user->name }}</strong></h3>
+            <h3 ><strong>Post di </strong><strong class="text-primary">{{ $post->user->name }}</strong></h3>
             <div class="container mt-3 mb-3 px-3 py-2">
                 <h1 class="text-wrap text-break">{{ $post->title }}</h1>
                 <div class="container mt-3 mb-3 px-3 py-2">
