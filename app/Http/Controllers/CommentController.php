@@ -37,7 +37,12 @@ class CommentController extends Controller
 
         // Validazione
         $request->validate([
-            'text' => 'required|string|max:255',
+
+            'text' => 'required|max:2000|regex:/\S+/',
+        ], [
+
+            'text.regex' => 'Il contenuto non può essere composto solo da spazi.',
+            'text.max' =>'Hai raggiunto i caratteri massimi per il post'
         ]);
 
         // Aggiorna il commento

@@ -40,7 +40,7 @@
             <div class="container mt-3 mb-3 px-3 py-2">
                 <h1 class="text-wrap text-break">{{ $post->title }}</h1>
                 <div class="container mt-3 mb-3 px-3 py-2">
-                    <h3>{{ $post->content }}</h3>
+                    <h3 class="text-wrap text-break">{{ $post->content }}</h3>
                 </div>
                 <p>{{ \Carbon\Carbon::parse($post->updated_at)->timezone('Europe/Rome')->format('d/m/Y H:i') }}</p>
             </div>
@@ -66,12 +66,11 @@
             <div>
                 @foreach($comments as $comment)
                     <div id="comment-{{ $comment->id }}" class="container mt-3 mb-3 px-3 py-2 border-bottom">
-                        <h3><strong class="text-primary">{{ $comment->author }}</strong></h3>
-                        <div class="container mt-3 mb-3 px-3 py-2">
-                            <!-- Commento visualizzato in un input text visibile -->
-                            <input type="text" class="form-control comment-text" value="{{ $comment->text }}" disabled>
+                        <h3><strong class="text-primary">{{ $comment->author }}</strong> ha commentato:</h3>
+                        <div class="container mt-3 mb-3 px-3 py-2"><!-- Commento visualizzato in un textarea visibile -->
+                            <textarea rows="10" cols="40" class="form-control comment-text" disabled>{{ $comment->text }}</textarea>
                             <!-- Campo per modificare il commento (visibile quando clicchi sulla matita) -->
-                            <input type="text" class="form-control edit-input d-none" value="{{ $comment->text }}">
+                            <textarea rows="10" cols="40" class="form-control edit-input d-none">{{ $comment->text }}</textarea>
                         </div>
                         <small>
                             <strong>Commentato il:</strong> {{ \Carbon\Carbon::parse($comment->updated_at)->timezone('Europe/Rome')->format('d/m/Y H:i') }}
